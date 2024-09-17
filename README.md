@@ -2,8 +2,12 @@
 
 ## Setup
 
-- [ ] setup project: NodeJS/Bun?, Typescript
-- [ ] setup validated .env
+- [*] setup project: NodeJS/Bun/tsx/vite-node?, Typescript
+  - using tsx and vite-node for now. Will see how it goes with test setup.
+- [*] .nvmrc
+- [*] gitignore
+- [*] setup validated .env
+  - done using vite-node oob env support, also added zod validation
 
 ## Ethereum
 
