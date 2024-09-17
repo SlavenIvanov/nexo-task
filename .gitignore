@@ -4,5 +4,8 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# PostgreSQL
+db-data
+
 # macOS
 .DS_Store

@@ -17,8 +17,10 @@
 
 ## DB
 
-- [ ] setup db -> Sqlite/PG?, Setup ORM-> Drizzle/Sequelize?
-- [ ] setup models
+- [*] setup db -> Sqlite/PG?, Setup ORM-> Drizzle/Sequelize?
+  - went with PostgreSQL because of RLS and schemas. [data seggregation](https://www.nextlabs.com/what-is-data-segregation/)
+  - went with Drizzle because of superb TS integration, query builder, studio, migrations, performance.
+- [*] setup models
 
 ## Rest API
 

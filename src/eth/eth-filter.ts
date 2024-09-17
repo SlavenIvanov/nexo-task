@@ -1,23 +1,30 @@
-import { SupportedFilters, Transaction, TransactionValueOperators } from '../types/transaction'
+import { Filter, NumberStringComparator } from '../db/schema/filter'
+import { Transaction } from '../db/schema/transaction'
 
 export class EthFilter {
-  #filters: SupportedFilters[]
+  #filters: Filter[]
 
-  constructor(filters: SupportedFilters[]) {
+  constructor(filters: Filter[]) {
     this.#filters = filters
   }
 
-  setFilters(filters: SupportedFilters[]) {
+  setFilters(filters: Filter[]) {
     this.#filters = filters
   }
 
   getMatchingFilters(tx: Transaction) {
-    const filterMatches: SupportedFilters[] = []
+    const filterMatches: Filter[] = []
 
     for (const filter of this.#filters) {
-      const transactionValue = tx[filter.property]
+      const transactionValue = tx[filter.configuration.property]
 
-      if (valueMatches(transactionValue, filter.operator, filter.value)) {
+      console.log(`tx:${transactionValue} cp:${filter.configuration.comparator} val:${filter.configuration.value}`)
+
+      const matches = valueMatches(transactionValue, filter.configuration.comparator, filter.configuration.value)
+
+      console.log(`matches: ${matches}`)
+
+      if (matches) {
         filterMatches.push(filter)
       }
     }
@@ -26,18 +33,21 @@ export class EthFilter {
   }
 }
 
-function valueMatches(valueA: bigint, operator: TransactionValueOperators, valueB: bigint) {
-  switch (operator) {
+function valueMatches(valueA: string, comparator: NumberStringComparator, valueB: string) {
+  const a = BigInt(valueA)
+  const b = BigInt(valueB)
+
+  switch (comparator) {
     case 'gt':
-      return valueA > valueB
+      return a > b
     case 'lt':
-      return valueA < valueB
+      return a < b
     case 'eq':
-      return valueA === valueB
+      return a === b
     case 'gte':
-      return valueA >= valueB
+      return a >= b
     case 'lte':
-      return valueA <= valueB
+      return a <= b
     default:
       return false
   }
