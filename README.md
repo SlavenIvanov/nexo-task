@@ -11,8 +11,9 @@
 
 ## Ethereum
 
-- [ ] setup Ethereum Provider
-- [ ] setup Ethereum dynamic filtering
+- [*] setup Ethereum Provider
+- [*] setup Ethereum dynamic filtering
+- [ ] add more filter types
 
 ## DB
 
