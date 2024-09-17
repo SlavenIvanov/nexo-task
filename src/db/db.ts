@@ -1,11 +1,29 @@
 import { eq } from 'drizzle-orm'
-import { db } from './db-client'
+import { db } from './dbClient'
 import { filters } from './schema'
 import { FilterConfiguration } from './schema/filter'
-import { Transaction, transactions } from './schema/transaction'
+import { TransactionInsert, transactions } from './schema/transaction'
 
 export async function saveFilter(configuration: FilterConfiguration) {
   return db.insert(filters).values({ configuration })
+}
+
+export async function updateFilter(id: string, enabled: boolean) {
+  return db.update(filters).set({ enabled }).where(eq(filters.id, id))
+}
+
+export async function getFilter(id: string) {
+  return db.query.filters.findFirst({
+    where: eq(filters.id, id)
+  })
+}
+
+export async function deleteFilter(id: string) {
+  return db.delete(filters).where(eq(filters.id, id))
+}
+
+export async function getFilters() {
+  return db.query.filters.findMany()
 }
 
 export async function getEnabledFilters() {
@@ -14,6 +32,6 @@ export async function getEnabledFilters() {
   })
 }
 
-export async function saveTransaction(transaction: Transaction) {
+export async function saveTransaction(transaction: TransactionInsert) {
   return db.insert(transactions).values(transaction)
 }

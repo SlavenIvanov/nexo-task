@@ -1,6 +1,6 @@
 {
-  "id": "e2fd5b9b-a0f8-4f0a-9168-f1b05b8aa118",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "50c9f34f-d3e5-402f-b231-42a49102c728",
+  "prevId": "e2fd5b9b-a0f8-4f0a-9168-f1b05b8aa118",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -38,7 +38,13 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "filters_configuration_unique": {
+          "name": "filters_configuration_unique",
+          "nullsNotDistinct": false,
+          "columns": ["configuration"]
+        }
+      }
     },
     "public.transactions": {
       "name": "transactions",

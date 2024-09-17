@@ -18,18 +18,20 @@
 ## DB
 
 - [*] setup db -> Sqlite/PG?, Setup ORM-> Drizzle/Sequelize?
-  - went with PostgreSQL because of RLS and schemas. [data seggregation](https://www.nextlabs.com/what-is-data-segregation/)
+  - went with PostgreSQL because of RLS and schemas. [data segregation](https://www.nextlabs.com/what-is-data-segregation/)
   - went with Drizzle because of superb TS integration, query builder, studio, migrations, performance.
 - [*] setup models
 
 ## Rest API
 
-- Rest endpoints
-- [ ] setup config CRUD. All endpoints need to be validated.
-  - [ ] Create
-  - [ ] Read
-  - [ ] Update
-  - (Delete)... Saved txs need to point to a configuration, so we won't delete any configs, just disable them.
+- Rest endpoints: express/koa/fastify/...
+  - endpoints validated using zod
+  - response type is pretty.
+- [*] setup config CRUD. All endpoints need to be validated.
+  - [*] Create
+  - [*] Read
+  - [*] Update -> saved txs need to point to a valid config. So it doesn't make sense to update any props on a config other than the enabled flag.
+  - [*] Delete... cascade delete txs
 - [ ] connect db updates to eth filtering
 
 ## Testing
@@ -39,7 +41,7 @@
 ## Quality of Life
 
 - [ ] revisit logging
-- [ ] prettier
+- [*] prettier
 - [ ] eslint
 
 ## Documentation

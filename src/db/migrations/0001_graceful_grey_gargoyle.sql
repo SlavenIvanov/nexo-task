@@ -1,0 +1,1 @@
+ALTER TABLE "filters" ADD CONSTRAINT "filters_configuration_unique" UNIQUE("configuration");

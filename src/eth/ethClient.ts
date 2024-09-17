@@ -1,6 +1,6 @@
 import Web3, { FMT_BYTES, FMT_NUMBER } from 'web3'
 import { RegisteredSubscription } from 'web3/lib/commonjs/eth.exports'
-import { Transaction } from '../db/schema/transaction'
+import { TransactionInsert } from '../db/schema/transaction'
 
 const RETURN_FORMAT = { number: FMT_NUMBER.STR, bytes: FMT_BYTES.HEX }
 
@@ -13,7 +13,7 @@ export class EthClient {
   }
 
   //   TODO find a way to extract Awaited<ReturnType<typeof this.web3.eth.getTransaction>> outside of the class to get full type
-  onNewTransaction(callback: (data: Transaction) => any) {
+  onNewTransaction(callback: (data: TransactionInsert) => any) {
     this.#web3.eth.subscribe('newPendingTransactions', undefined, RETURN_FORMAT).then((subscription) => {
       subscription.on('error', (err) => {
         console.error('❌ Error in subscription', err)

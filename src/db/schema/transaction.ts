@@ -17,4 +17,5 @@ export const transactions = pgTable('transactions', {
     .notNull()
 })
 
-export type Transaction = typeof transactions.$inferInsert
+//todo possibly rename?
+export type TransactionInsert = typeof transactions.$inferInsert
