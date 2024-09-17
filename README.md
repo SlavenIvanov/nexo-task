@@ -1,4 +1,4 @@
-# Plan
+# Basic Plan
 
 ## Setup
 
@@ -32,7 +32,7 @@
   - [*] Read
   - [*] Update -> saved txs need to point to a valid config. So it doesn't make sense to update any props on a config other than the enabled flag.
   - [*] Delete... cascade delete txs
-- [ ] connect db updates to eth filtering
+- [*] connect db updates to eth filtering
 
 ## Testing
 
@@ -47,7 +47,18 @@
 ## Documentation
 
 - [ ] Add documentation: Readme/ Swagger?
+  - added Swagger docs
 - [ ] Readme:
 - [ ] Preface
 - [ ] Architecture
 - [ ] Installation
+
+# Bonus:
+
+Create a simple front-end to show off the back-end's features
+
+- [ ] Add a websocket endpoint to fastify api
+- [ ] Create a simple svelte UI to show the live data
+  - global state
+- [ ] CRUD from UI
+- [ ] dockerize everything

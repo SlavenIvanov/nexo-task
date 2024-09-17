@@ -11,6 +11,6 @@ app.listen({ port: env.PORT }, (err, address) => {
   console.log(`✅ API Server is running on ${address}`)
 })
 
-// startEthApp().catch((err) => {
-//   console.error('❌ Error in eth app', err)
-// })
+startEthApp().catch((err) => {
+  console.error('❌ Error in eth app', err)
+})
