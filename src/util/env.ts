@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
-  ETH_PROVIDER: z.string().url(),
+  ETH_PROVIDER: z.string().url()
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
