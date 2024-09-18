@@ -1,4 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>
-	Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation we outside
-</p>
+<script>
+	import { Button } from '$lib/components/shad/ui/button';
+</script>
+
+<div class="flex flex-col items-center justify-center h-screen gap-4">
+	<h1 class="text-3xl font-bold">Welcome to SvelteKit</h1>
+
+	<Button on:click={() => alert('Hello World')}>Click me</Button>
+</div>
