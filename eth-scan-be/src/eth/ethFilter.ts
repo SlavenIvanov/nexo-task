@@ -2,7 +2,7 @@ import { FilterSelect } from '../db/schema/filter'
 import { TransactionInsert } from '../db/schema/transaction'
 import { valueMatches } from '../util/comparators'
 
-class EthFilter {
+export class EthFilter {
   #filters: FilterSelect[] = []
 
   constructor() {}

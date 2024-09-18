@@ -42,7 +42,7 @@
 
 - [ ] revisit logging
 - [*] prettier
-- [ ] eslint
+- [*] eslint
 
 ## Documentation
 
