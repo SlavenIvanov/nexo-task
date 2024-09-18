@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { db } from './dbClient'
 import { filters } from './schema'
 import { FilterConfiguration } from './schema/filter'
@@ -23,7 +23,7 @@ export async function deleteFilter(id: string) {
 }
 
 export async function getFilters() {
-  return db.query.filters.findMany()
+  return db.query.filters.findMany({ orderBy: desc(filters.createdAt) })
 }
 
 export async function getEnabledFilters() {

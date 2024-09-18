@@ -58,7 +58,13 @@
 Create a simple front-end to show off the back-end's features
 
 - [*] Add a websocket endpoint to fastify api
-- [ ] Create a simple svelte UI to show the live data
+- [*] Create a simple svelte UI to show the live data
   - global state
-- [ ] CRUD from UI
+  - [*] See a list of filters
+  - [*] Create a filter
+  - [*] Delete a filter
+  - [*] Edit a filter
+- [ ] visualize the live data
+  - [ ] color transactions based on the filter they match
+- [ ] display all saved transactions
 - [ ] dockerize everything

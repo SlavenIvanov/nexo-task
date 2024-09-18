@@ -3,7 +3,7 @@ import { expand } from 'dotenv-expand'
 
 import { z } from 'zod'
 
-const envSchema = z.object({
+const EnvSchema = z.object({
   // web3
   ETH_PROVIDER: z.string().url(),
   // db
@@ -19,7 +19,7 @@ const envSchema = z.object({
 
 expand(config())
 
-const parsedEnv = envSchema.safeParse(process.env)
+const parsedEnv = EnvSchema.safeParse(process.env)
 
 if (!parsedEnv.success) {
   let errorMessage = '❌ Missing required values in .env:\n'
