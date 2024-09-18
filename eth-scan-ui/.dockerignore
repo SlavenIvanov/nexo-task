@@ -1,0 +1,56 @@
+# Version control
+.git
+.gitignore
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules
+npm-debug.log
+yarn-error.log
+
+# SvelteKit specific
+/.svelte-kit
+/build
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+/coverage
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build output
+/build
+/dist
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Other
+README.md
+LICENSE
+
+# SvelteKit
+.svelte-kit

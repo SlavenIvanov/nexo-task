@@ -1,0 +1,43 @@
+services:
+  eth-db:
+    image: postgres:16.2
+    # env_file:
+    #   - ./eth-scan/.env
+    environment:
+      #todo try .env export
+      - POSTGRES_PASSWORD=db-secret
+      - POSTGRES_USER=db-user
+      - POSTGRES_DB=eth-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+  eth-scan-be:
+    depends_on:
+      - eth-db
+    build:
+      context: ./eth-scan-be
+      dockerfile: Dockerfile
+    ports:
+      - '3003:3003'
+    env_file:
+      - ./eth-scan-be/.env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://db-user:db-secret@eth-db:5432/eth-db
+  eth-scan-ui:
+    build:
+      context: ./eth-scan-ui
+      dockerfile: Dockerfile
+      args:
+        PUBLIC_API_URL: http://localhost:3003
+        PUBLIC_API_WS_URL: ws://localhost:3003
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./eth-scan-ui/.env
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - eth-db
+      - eth-scan-be
