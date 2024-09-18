@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createFilter, deleteFilter, fetchFilters, updateFilter } from '$lib/client/api/api'
+	import { getPastelColor } from '$lib/client/util/colors'
 	import * as Card from '$lib/components/shad/ui/card'
 	import { Input } from '$lib/components/shad/ui/input'
 	import * as Select from '$lib/components/shad/ui/select'
@@ -10,7 +11,12 @@
 	import { toast } from 'svelte-sonner'
 	import { Button } from './shad/ui/button'
 	import Switch from './shad/ui/switch/switch.svelte'
-	import { getPastelColor } from '$lib/client/util/colors'
+
+	type propTypes = {
+		onFilterSelected: (filter: Filter) => void
+	}
+
+	const { onFilterSelected }: propTypes = $props()
 
 	let filters = $state<Filter[]>([])
 
@@ -27,9 +33,13 @@
 	let newFilterValue = $state('')
 
 	function updateFilters() {
-		fetchFilters().then((f) => {
-			filters = f
-		})
+		fetchFilters()
+			.then((f) => {
+				filters = f
+			})
+			.catch((e) => {
+				toast.error(e.message ?? 'Oops 😬')
+			})
 	}
 
 	async function createNewFilter() {
@@ -38,8 +48,6 @@
 			comparator: newFilterComparator.value as 'gt' | 'lt' | 'eq' | 'gte' | 'lte',
 			value: '' + newFilterValue
 		})
-
-		console.log({ result })
 
 		if (result.statusCode >= 400) {
 			toast.error(result.message ?? 'Oops 😬')
@@ -56,8 +64,8 @@
 				<Card.Title>Filters</Card.Title>
 				<Card.Description>determine which transactions are saved.</Card.Description>
 			</div>
-			<Button variant="ghost" size="icon" on:click={() => (isCreating = !isCreating)}><Plus /></Button>
-			<Button variant="ghost" size="icon" on:click={() => (isDeleting = !isDeleting)}><Pencil /></Button>
+			<Button variant="ghost" size="icon" onclick={() => (isCreating = !isCreating)}><Plus /></Button>
+			<Button variant="ghost" size="icon" onclick={() => (isDeleting = !isDeleting)}><Pencil /></Button>
 		</div>
 	</Card.Header>
 	<Card.Content class="flex flex-col gap-4">
@@ -116,32 +124,41 @@
 		<div use:autoAnimate>
 			{#each filters as filter (filter.id)}
 				<div
-					class="hover:bg-muted/50 data-[state=selected]:bg-muted flex min-h-10 flex-row items-center justify-between gap-8 px-5"
-					use:autoAnimate
+					class="hover:bg-muted/50 data-[state=selected]:bg-muted flex min-h-10 flex-row items-center justify-between px-5"
 				>
-					<div class="h-4 w-4 rounded-full" style="background-color: {getPastelColor(filter.id)}"></div>
-					<div class="flex flex-1 flex-row gap-2">
-						<div>
-							{NumberStringProperties.find((p) => p.value === filter.configuration.property)?.label}
+					<button
+						onclick={() => {
+							onFilterSelected(filter)
+						}}
+						class="flex w-full flex-row items-center gap-4"
+					>
+						<div class="h-4 w-4 rounded-full" style="background-color: {getPastelColor(filter.id)}"></div>
+						<div class="flex flex-1 flex-row gap-2">
+							<div>
+								{NumberStringProperties.find((p) => p.value === filter.configuration.property)?.label}
+							</div>
+							<div>
+								{NumberStringComparators.find((c) => c.value === filter.configuration.comparator)?.label}
+							</div>
+							<div>{filter.configuration.value}</div>
 						</div>
-						<div>
-							{NumberStringComparators.find((c) => c.value === filter.configuration.comparator)?.label}
-						</div>
-						<div>{filter.configuration.value}</div>
-					</div>
+					</button>
 					<Switch checked={filter.enabled} onCheckedChange={(checked) => updateFilter(filter.id, checked)} />
 					{#if isDeleting}
-						<Button
-							variant="ghost"
-							size="icon"
-							on:click={() => {
-								deleteFilter(filter.id)
-								// Optimistic update
-								filters = filters.filter((f) => f.id !== filter.id)
-							}}
-						>
-							<Trash2 class="h-4 w-4" />
-						</Button>
+						<div class="pl-2">
+							<Button
+								variant="ghost"
+								size="icon"
+								on:click={(e) => {
+									e.preventDefault()
+									deleteFilter(filter.id)
+									// Optimistic update
+									filters = filters.filter((f) => f.id !== filter.id)
+								}}
+							>
+								<Trash2 class="h-4 w-4" />
+							</Button>
+						</div>
 					{/if}
 				</div>
 			{/each}

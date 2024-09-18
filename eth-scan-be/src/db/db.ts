@@ -32,6 +32,14 @@ export async function getEnabledFilters() {
   })
 }
 
+export async function getTransactionsByFilter(filterId: string, limit: number = 100) {
+  return db.query.transactions.findMany({
+    where: eq(transactions.filterId, filterId),
+    limit,
+    orderBy: desc(transactions.createdAt)
+  })
+}
+
 export async function saveTransaction(transaction: TransactionInsert) {
   return db
     .insert(transactions)

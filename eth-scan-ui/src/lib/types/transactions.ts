@@ -1,4 +1,5 @@
-type TransactionInsert = {
+export type TransactionInsert = {
+	id: string
 	hash: string
 	from: string
 	to: string

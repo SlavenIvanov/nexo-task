@@ -12,5 +12,5 @@ app.listen({ port: env.PORT }, (err, address) => {
 })
 
 startEthApp().catch((err) => {
-  console.error('❌ Error in eth app', err)
+  console.error('❌ Error in eth app ', err)
 })

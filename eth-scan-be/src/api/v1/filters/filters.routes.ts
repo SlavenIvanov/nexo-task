@@ -3,11 +3,19 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { filterEmitter } from '../../../eth/events/filterEmitter'
 import { ROUTES } from '../../../util/constants'
-import { handleCreateFilter, handleDeleteFilter, handleGetFilters, handleUpdateFilter } from './filters.handlers'
+import {
+  handleCreateFilter,
+  handleDeleteFilter,
+  handleGetFilters,
+  handleGetTransactionsByFilter,
+  handleUpdateFilter
+} from './filters.handlers'
 import { CreateFilterRequest } from './schema/createFilter'
 import { GetFiltersResponse } from './schema/getFilters'
 import { UpdateFilterRequest } from './schema/updateFilter'
+import { GetTransactionsFilterResponse } from './schema/getTransactionsFilter'
 
+//TODO: extract all to zod schema to schema folder
 export const filtersRoutes = async (app: FastifyInstance) => {
   // Create Filter
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -90,6 +98,28 @@ export const filtersRoutes = async (app: FastifyInstance) => {
       await handleDeleteFilter(id)
 
       return reply.code(200).send({ message: 'Filter deleted' })
+    }
+  })
+  // Get Transactions By Filter
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: ROUTES.FILTERS + '/:id/transactions',
+    schema: {
+      params: z.object({
+        id: z.string()
+      }),
+      query: z.object({
+        limit: z.coerce.number().optional()
+      }),
+      response: {
+        200: GetTransactionsFilterResponse
+      }
+    },
+    handler: (request, reply) => {
+      const { id } = request.params
+      const { limit } = request.query
+
+      return handleGetTransactionsByFilter(id, limit)
     }
   })
 }

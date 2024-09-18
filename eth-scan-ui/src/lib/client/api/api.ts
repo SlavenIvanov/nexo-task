@@ -57,3 +57,8 @@ export function liveTransactions() {
 		}
 	}
 }
+
+export async function fetchTransactionsByFilter(filterId: string, limit: number = 100) {
+	const response = await fetch(`${envPublic.PUBLIC_API_URL}/api/v1/filters/${filterId}/transactions?limit=${limit}`)
+	return response.json()
+}

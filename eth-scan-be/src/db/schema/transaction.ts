@@ -17,7 +17,6 @@ export const transactions = pgTable('transactions', {
     .notNull()
 })
 
-//todo possibly rename?
 export type TransactionInsert = typeof transactions.$inferInsert
 
 export type NewTransactionEvent = Pick<TransactionInsert, 'hash' | 'from' | 'to' | 'value' | 'gas'> & {

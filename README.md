@@ -67,7 +67,9 @@ Create a simple front-end to show off the back-end's features
 - [*] visualize the live data
   - [*] color transactions based on the filter they match
   - [*] glowing green to indicate live
-- [ ] display all saved transactions
+- [*] make site mobile friendly
+- [*] display all saved transactions
 - [ ] dockerize everything
+- [ ] ports
 
 ## TODO extract overlapping types into a shared lib

@@ -1,4 +1,4 @@
-import { deleteFilter, getFilter, getFilters, saveFilter, updateFilter } from '../../../db/db'
+import { deleteFilter, getFilter, getFilters, getTransactionsByFilter, saveFilter, updateFilter } from '../../../db/db'
 import { DuplicateFilterError } from './errors/duplicateFilter'
 import { FilterNotFoundError } from './errors/filterNotFound'
 import { CreateFilter } from './schema/createFilter'
@@ -35,4 +35,8 @@ export async function handleDeleteFilter(id: string) {
   }
 
   return deleteFilter(id)
+}
+
+export async function handleGetTransactionsByFilter(filterId: string, limit: number) {
+  return getTransactionsByFilter(filterId, limit)
 }

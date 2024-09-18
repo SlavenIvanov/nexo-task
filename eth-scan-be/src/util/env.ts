@@ -1,6 +1,5 @@
 import { config } from 'dotenv'
 import { expand } from 'dotenv-expand'
-
 import { z } from 'zod'
 
 const EnvSchema = z.object({
@@ -33,5 +32,8 @@ if (!parsedEnv.success) {
 
   throw error
 }
+
+// todo delete
+console.log('✅ Using env:', parsedEnv.data)
 
 export const env = parsedEnv.data
