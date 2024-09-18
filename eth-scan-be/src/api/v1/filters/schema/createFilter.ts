@@ -7,4 +7,8 @@ export const CreateFilterRequest = z.object({
   value: z.string().regex(/^\d+$/, 'Must be a number string')
 })
 
+export const CreateFilterResponse = z.object({
+  message: z.string()
+})
+
 export type CreateFilter = z.infer<typeof CreateFilterRequest>

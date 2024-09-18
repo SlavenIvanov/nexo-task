@@ -1,5 +1,5 @@
 services:
-  db:
+  eth-db:
     image: postgres:16.2
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}

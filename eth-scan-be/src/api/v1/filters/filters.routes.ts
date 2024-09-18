@@ -10,23 +10,24 @@ import {
   handleGetTransactionsByFilter,
   handleUpdateFilter
 } from './filters.handlers'
-import { CreateFilterRequest } from './schema/createFilter'
+import { CreateFilterRequest, CreateFilterResponse } from './schema/createFilter'
 import { GetFiltersResponse } from './schema/getFilters'
-import { UpdateFilterRequest } from './schema/updateFilter'
-import { GetTransactionsFilterResponse } from './schema/getTransactionsFilter'
+import { UpdateFilterParams, UpdateFilterRequest, UpdateFilterResponse } from './schema/updateFilter'
+import {
+  GetTransactionsFilterParams,
+  GetTransactionsFilterQuery,
+  GetTransactionsFilterResponse
+} from './schema/getTransactionsFilter'
+import { DeleteFilterParams, DeleteFilterResponse } from './schema/deleteFilter'
 
-//TODO: extract all to zod schema to schema folder
 export const filtersRoutes = async (app: FastifyInstance) => {
-  // Create Filter
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: ROUTES.FILTERS,
     schema: {
       body: CreateFilterRequest,
       response: {
-        201: z.object({
-          message: z.string()
-        })
+        201: CreateFilterResponse
       }
     },
     handler: async (request, reply) => {
@@ -39,7 +40,7 @@ export const filtersRoutes = async (app: FastifyInstance) => {
       return reply.code(201).send({ message: 'Filter created' })
     }
   })
-  // Get Filters
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: ROUTES.FILTERS,
@@ -50,19 +51,15 @@ export const filtersRoutes = async (app: FastifyInstance) => {
     },
     handler: handleGetFilters
   })
-  // Update Filter
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: ROUTES.FILTERS + '/:id',
     schema: {
-      params: z.object({
-        id: z.string()
-      }),
+      params: UpdateFilterParams,
       body: UpdateFilterRequest,
       response: {
-        200: z.object({
-          message: z.string()
-        })
+        200: UpdateFilterResponse
       }
     },
     handler: async (request, reply) => {
@@ -75,18 +72,14 @@ export const filtersRoutes = async (app: FastifyInstance) => {
       return reply.code(200).send({ message: 'Filter updated' })
     }
   })
-  // Delete Filter
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: ROUTES.FILTERS + '/:id',
     schema: {
-      params: z.object({
-        id: z.string()
-      }),
+      params: DeleteFilterParams,
       response: {
-        200: z.object({
-          message: z.string()
-        })
+        200: DeleteFilterResponse
       }
     },
     handler: async (request, reply) => {
@@ -100,17 +93,13 @@ export const filtersRoutes = async (app: FastifyInstance) => {
       return reply.code(200).send({ message: 'Filter deleted' })
     }
   })
-  // Get Transactions By Filter
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: ROUTES.FILTERS + '/:id/transactions',
     schema: {
-      params: z.object({
-        id: z.string()
-      }),
-      query: z.object({
-        limit: z.coerce.number().optional()
-      }),
+      params: GetTransactionsFilterParams,
+      query: GetTransactionsFilterQuery,
       response: {
         200: GetTransactionsFilterResponse
       }

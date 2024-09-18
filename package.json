@@ -1,0 +1,18 @@
+{
+  "name": "nexo-task",
+  "version": "1.0.0",
+  "description": "Nexo Task Monorepo",
+  "scripts": {
+    "start": "npm run start:be & npm run start:ui",
+    "start:be": "cd eth-scan-be && npm run start",
+    "start:ui": "cd eth-scan-ui && npm run dev",
+    "open:ui": "open http://localhost:5173",
+    "open:be": "open http://localhost:3003/documentation",
+    "postinstall": "npm run install:be && npm run install:ui",
+    "install:be": "cd eth-scan-be && npm i",
+    "install:ui": "cd eth-scan-ui && npm i"
+  },
+  "keywords": [],
+  "author": "Slaven Ivanov <slaven.ivanov.95@gmail.com>",
+  "license": "ISC"
+}

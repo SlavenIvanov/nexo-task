@@ -33,7 +33,4 @@ if (!parsedEnv.success) {
   throw error
 }
 
-// todo delete
-console.log('✅ Using env:', parsedEnv.data)
-
 export const env = parsedEnv.data

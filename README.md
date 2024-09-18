@@ -70,6 +70,5 @@ Create a simple front-end to show off the back-end's features
 - [*] make site mobile friendly
 - [*] display all saved transactions
 - [ ] dockerize everything
-- [ ] ports
 
 ## TODO extract overlapping types into a shared lib
