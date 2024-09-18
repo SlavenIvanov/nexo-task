@@ -21,7 +21,7 @@ export async function startEthApp() {
       enabledFilters = enabledFilters.filter((f) => f.id !== excludeFilterId)
     }
 
-    console.log('💡Setting filters', { enabledFilters })
+    console.log('💡 Setting filters', { enabledFilters })
     ethFilter.setFilters(enabledFilters)
   })
 
@@ -30,7 +30,7 @@ export async function startEthApp() {
   ethClient.onNewTransaction(async (tx) => {
     const matchingFilters = ethFilter.getMatchingFilters(tx)
 
-    console.log(`🔍 tx: ${tx.hash} matches with ${matchingFilters.map((f) => f.id)}`)
+    console.log(`🔍 tx: ${tx.hash} matches with [${matchingFilters.map((f) => f.id)}]`)
 
     let transaction = {
       hash: tx.hash,

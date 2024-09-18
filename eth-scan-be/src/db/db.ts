@@ -45,6 +45,6 @@ export async function saveTransaction(transaction: TransactionInsert) {
     .insert(transactions)
     .values(transaction)
     .catch((e) => {
-      console.error('❌ Error saving transaction', e)
+      console.error('❌ Error saving transaction', transaction, e)
     })
 }
