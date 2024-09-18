@@ -18,7 +18,7 @@
 ## DB
 
 - [*] setup db -> Sqlite/PG?, Setup ORM-> Drizzle/Sequelize?
-  - went with PostgreSQL because of RLS and schemas. [data segregation](https://www.nextlabs.com/what-is-data-segregation/)
+  - went with PostgreSQL because of RLS and schemas for the purpose of future [data segregation](https://www.nextlabs.com/what-is-data-segregation/)
   - went with Drizzle because of superb TS integration, query builder, studio, migrations, performance.
 - [*] setup models
 
@@ -57,7 +57,7 @@
 
 Create a simple front-end to show off the back-end's features
 
-- [ ] Add a websocket endpoint to fastify api
+- [*] Add a websocket endpoint to fastify api
 - [ ] Create a simple svelte UI to show the live data
   - global state
 - [ ] CRUD from UI
