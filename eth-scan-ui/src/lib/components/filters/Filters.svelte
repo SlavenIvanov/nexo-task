@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createFilter, deleteFilter, fetchFilters } from '$lib/client/api/api'
+	import { createFilter, deleteFilter, fetchFilters, updateFilter } from '$lib/client/api/api'
 	import type { Filter, FilterConfiguration } from '$lib/types/types'
 	import * as Card from '$lib/components/shad/ui/card'
 	import Switch from '../shad/ui/switch/switch.svelte'
@@ -124,7 +124,7 @@
 						</div>
 						<div>{filter.configuration.value}</div>
 					</div>
-					<Switch checked={filter.enabled} />
+					<Switch checked={filter.enabled} onCheckedChange={(checked) => updateFilter(filter.id, checked)} />
 					{#if isDeleting}
 						<Button
 							variant="ghost"

@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { ROUTES } from '../../../util/constants'
-import { txEmitter } from './events'
+import { txEmitter } from '../../../eth/events/transactionEmitter'
 
 export const wsRoutes = async (app: FastifyInstance) => {
   app.get(ROUTES.WS, { websocket: true }, (socket, req) => {

@@ -12,7 +12,7 @@ import { wsRoutes } from './ws/ws.handler'
 export async function buildApp() {
   const app = Fastify().withTypeProvider<ZodTypeProvider>()
 
-  //TODO Don't do this in production
+  //Don't do this in production
   app.register(cors, { origin: '*' })
 
   app.setValidatorCompiler(validatorCompiler)

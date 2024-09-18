@@ -1,15 +1,13 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
+import { filterEmitter } from '../../../eth/events/filterEmitter'
 import { ROUTES } from '../../../util/constants'
 import { handleCreateFilter, handleDeleteFilter, handleGetFilters, handleUpdateFilter } from './filters.handlers'
 import { CreateFilterRequest } from './schema/createFilter'
 import { GetFiltersResponse } from './schema/getFilters'
 import { UpdateFilterRequest } from './schema/updateFilter'
-import { getEnabledFilters } from '../../../db/db'
-import { ethFilter } from '../../../eth/ethFilter'
 
-//todo add zod return types for swagger
 export const filtersRoutes = async (app: FastifyInstance) => {
   // Create Filter
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -28,7 +26,7 @@ export const filtersRoutes = async (app: FastifyInstance) => {
 
       await handleCreateFilter(configuration)
 
-      getEnabledFilters().then(ethFilter.setFilters.bind(ethFilter))
+      filterEmitter.emitFilterChange()
 
       return reply.code(201).send({ message: 'Filter created' })
     }
@@ -65,7 +63,7 @@ export const filtersRoutes = async (app: FastifyInstance) => {
 
       await handleUpdateFilter(id, enabled)
 
-      getEnabledFilters().then(ethFilter.setFilters.bind(ethFilter))
+      filterEmitter.emitFilterChange()
 
       return reply.code(200).send({ message: 'Filter updated' })
     }
@@ -89,7 +87,7 @@ export const filtersRoutes = async (app: FastifyInstance) => {
 
       await handleDeleteFilter(id)
 
-      getEnabledFilters().then(ethFilter.setFilters.bind(ethFilter))
+      filterEmitter.emitFilterChange()
 
       return reply.code(200).send({ message: 'Filter deleted' })
     }

@@ -6,23 +6,18 @@ export const filters = pgTable('filters', {
     .primaryKey()
     .$default(() => nanoid()),
   enabled: boolean('enabled').notNull().default(true),
-  configuration: jsonb('configuration').unique().notNull().$type<FilterConfiguration>(),
+  configuration: jsonb('configuration').unique().notNull().$type<NumberStringFilters>(),
   createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow()
 })
 
-//todo possibly rename?
 export type FilterSelect = typeof filters.$inferSelect
 
-export type FilterConfiguration = NumberStringFilters
-
-// todo extract and  more filter types
 type NumberStringFilters = {
   property: (typeof NumberStringProperties)[number]
   comparator: (typeof NumberStringComparators)[number]
   value: string
 }
 
-//todo cleanup???
 export const NumberStringComparators = ['gt', 'lt', 'eq', 'gte', 'lte'] as const
 export const NumberStringProperties = ['value', 'gas'] as const
 

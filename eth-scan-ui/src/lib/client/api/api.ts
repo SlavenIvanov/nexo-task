@@ -26,3 +26,14 @@ export async function createFilter(configuration: FilterConfiguration) {
 
 	return response.json()
 }
+
+export async function updateFilter(id: string, enabled: boolean) {
+	const response = await fetch(`${envPublic.PUBLIC_API_URL}/api/v1/filters/${id}`, {
+		method: 'POST',
+		body: JSON.stringify({ enabled }),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+	return response.json()
+}

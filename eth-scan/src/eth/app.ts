@@ -1,8 +1,9 @@
-import { txEmitter } from '../api/v1/ws/events'
+import { txEmitter } from './events/transactionEmitter'
 import { getEnabledFilters, saveTransaction } from '../db/db'
 import { env } from '../util/env'
 import { EthClient } from './ethClient'
 import { ethFilter } from './ethFilter'
+import { filterEmitter } from './events/filterEmitter'
 
 export async function startEthApp() {
   console.log('🤖 Starting Eth App')
@@ -10,6 +11,12 @@ export async function startEthApp() {
   const enabledFilters = await getEnabledFilters()
 
   ethFilter.setFilters(enabledFilters)
+
+  filterEmitter.onFilterChange(async () => {
+    const enabledFilters = await getEnabledFilters()
+
+    ethFilter.setFilters(enabledFilters)
+  })
 
   const ethClient = new EthClient(env.ETH_PROVIDER)
 
@@ -23,16 +30,17 @@ export async function startEthApp() {
       from: tx.from,
       to: tx.to,
       value: tx.value,
-      gas: tx.gas,
-      //TODO bad
-      filterId: ''
+      gas: tx.gas
+    }
+    for (const filter of matchingFilters) {
+      const transactionWithFilter = {
+        ...transaction,
+        filterId: filter.id
+      }
+      await saveTransaction(transactionWithFilter)
     }
 
-    for (const filter of matchingFilters) {
-      transaction.filterId = filter.id
-      await saveTransaction(transaction)
-    }
-    txEmitter.emitNewTx(transaction)
+    txEmitter.emitNewTx({ ...transaction, matchingFilters: matchingFilters.map((f) => f.id) })
   })
 
   console.log('✅ Eth App started')

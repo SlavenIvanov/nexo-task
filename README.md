@@ -7,7 +7,7 @@
 - [*] .nvmrc
 - [*] gitignore
 - [*] setup validated .env
-  - done using vite-node oob env support, also added zod validation
+  - [*] done using vite-node oob env support, also added zod validation
 
 ## Ethereum
 
@@ -18,15 +18,15 @@
 ## DB
 
 - [*] setup db -> Sqlite/PG?, Setup ORM-> Drizzle/Sequelize?
-  - went with PostgreSQL because of RLS and schemas for the purpose of future [data segregation](https://www.nextlabs.com/what-is-data-segregation/)
-  - went with Drizzle because of superb TS integration, query builder, studio, migrations, performance.
+  - [*] went with PostgreSQL because of RLS and schemas for the purpose of future [data segregation](https://www.nextlabs.com/what-is-data-segregation/)
+  - [*] went with Drizzle because of superb TS integration, query builder, studio, migrations, performance.
 - [*] setup models
 
 ## Rest API
 
 - Rest endpoints: express/koa/fastify/...
-  - endpoints validated using zod
-  - response type is pretty.
+  - [*] endpoints validated using zod
+  - [*] response type is pretty.
 - [*] setup config CRUD. All endpoints need to be validated.
   - [*] Create
   - [*] Read
@@ -47,7 +47,7 @@
 ## Documentation
 
 - [ ] Add documentation: Readme/ Swagger?
-  - added Swagger docs
+  - [*] added Swagger docs
 - [ ] Readme:
 - [ ] Preface
 - [ ] Architecture
@@ -63,7 +63,7 @@ Create a simple front-end to show off the back-end's features
   - [*] See a list of filters
   - [*] Create a filter
   - [*] Delete a filter
-  - [*] Edit a filter
+  - [ ] Edit a filter
 - [ ] visualize the live data
   - [ ] color transactions based on the filter they match
 - [ ] display all saved transactions
