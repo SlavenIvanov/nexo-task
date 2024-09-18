@@ -5,15 +5,15 @@ export class FilterEmitter {
 
   #emitter = new EventEmitter()
 
-  emitFilterChange() {
-    this.#emitter.emit(this.#FILTER_CHANGE)
+  emitFilterChange(excludeFilterId?: string) {
+    this.#emitter.emit(this.#FILTER_CHANGE, excludeFilterId)
   }
 
-  onFilterChange(cb: () => void) {
+  onFilterChange(cb: (excludeFilterId?: string) => void) {
     this.#emitter.on(this.#FILTER_CHANGE, cb)
   }
 
-  unregister(cb: () => void) {
+  unregister(cb: (excludeFilterId?: string) => void) {
     this.#emitter.removeListener(this.#FILTER_CHANGE, cb)
   }
 }

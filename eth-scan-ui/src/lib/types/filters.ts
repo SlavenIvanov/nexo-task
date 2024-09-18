@@ -1,11 +1,9 @@
 export type Filter = {
 	id: string
 	enabled: boolean
-	configuration: FilterConfiguration
+	configuration: NumberStringFilters
 	createdAt: Date
 }
-
-export type FilterConfiguration = NumberStringFilters
 
 type NumberStringFilters = {
 	property: (typeof NumberStringProperties)[number]['value']

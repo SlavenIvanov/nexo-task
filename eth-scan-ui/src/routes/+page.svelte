@@ -1,22 +1,28 @@
 <script lang="ts">
-	import { Button } from '$lib/components/shad/ui/button'
+	import { liveTransactions } from '$lib/client/api/api'
+	import Filters from '$lib/components/Filters.svelte'
+	import LiveTransactions from '$lib/components/LiveTransactions.svelte'
+	import SavedTransactions from '$lib/components/SavedTransactions.svelte'
 
-	import { fetchFilters } from '$lib/client/api/api'
-	import { envPublic } from '$lib/client/envPublic'
-	import Filters from '$lib/components/filters/Filters.svelte'
-	import type { Filter } from '$lib/types/types'
+	import { onDestroy } from 'svelte'
 
-	console.log({ envPublic })
-
-	let filters = $state<Filter[]>([])
+	const liveTx = liveTransactions()
 
 	$effect(() => {
-		fetchFilters().then((f) => {
-			filters = f
-		})
+		liveTx.listen()
+	})
+
+	onDestroy(() => {
+		liveTx.stop()
 	})
 </script>
 
-<div class="flex h-screen flex-col items-center justify-center gap-4">
-	<Filters />
+<div class="flex h-screen gap-4 p-4">
+	<div class="flex w-[550px] flex-col gap-4">
+		<Filters />
+		<LiveTransactions />
+	</div>
+	<div class="w-full">
+		<SavedTransactions />
+	</div>
 </div>

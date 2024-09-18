@@ -33,5 +33,10 @@ export async function getEnabledFilters() {
 }
 
 export async function saveTransaction(transaction: TransactionInsert) {
-  return db.insert(transactions).values(transaction)
+  return db
+    .insert(transactions)
+    .values(transaction)
+    .catch((e) => {
+      console.error('❌ Error saving transaction', e)
+    })
 }

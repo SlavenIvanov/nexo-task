@@ -12,9 +12,16 @@ export async function startEthApp() {
 
   ethFilter.setFilters(enabledFilters)
 
-  filterEmitter.onFilterChange(async () => {
-    const enabledFilters = await getEnabledFilters()
+  filterEmitter.onFilterChange(async (excludeFilterId) => {
+    let enabledFilters = await getEnabledFilters()
 
+    console.log('💡Updating filters', { excludeFilterId })
+
+    if (excludeFilterId) {
+      enabledFilters = enabledFilters.filter((f) => f.id !== excludeFilterId)
+    }
+
+    console.log('💡Setting filters', { enabledFilters })
     ethFilter.setFilters(enabledFilters)
   })
 

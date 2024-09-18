@@ -6,8 +6,8 @@ import * as schema from './schema'
 export const connection = postgres(env.DATABASE_URL)
 
 export const db = drizzle(connection, {
-  schema
+  schema,
   //todo env?
   // Todo cleanup migrations
-  // logger: true
+  logger: true
 })

@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { createFilter, deleteFilter, fetchFilters, updateFilter } from '$lib/client/api/api'
-	import type { Filter, FilterConfiguration } from '$lib/types/types'
 	import * as Card from '$lib/components/shad/ui/card'
-	import Switch from '../shad/ui/switch/switch.svelte'
-	import { Trash2, Plus, Pencil, Save } from 'lucide-svelte'
-	import { Button } from '../shad/ui/button'
-	import autoAnimate from '@formkit/auto-animate'
-	import * as Select from '$lib/components/shad/ui/select'
 	import { Input } from '$lib/components/shad/ui/input'
-	import { NumberStringComparators, NumberStringProperties } from '$lib/types/types'
+	import * as Select from '$lib/components/shad/ui/select'
+	import type { Filter } from '$lib/types/filters'
+	import { NumberStringComparators, NumberStringProperties } from '$lib/types/filters'
+	import autoAnimate from '@formkit/auto-animate'
+	import { Pencil, Plus, Save, Trash2 } from 'lucide-svelte'
 	import { toast } from 'svelte-sonner'
+	import { Button } from './shad/ui/button'
+	import Switch from './shad/ui/switch/switch.svelte'
+	import { getPastelColor } from '$lib/client/util/colors'
 
 	let filters = $state<Filter[]>([])
 
@@ -48,7 +49,7 @@
 	}
 </script>
 
-<Card.Root class="w-[400px]">
+<Card.Root class="min-w-full">
 	<Card.Header>
 		<div class="flex">
 			<div class="flex-1">
@@ -114,7 +115,11 @@
 		{/if}
 		<div use:autoAnimate>
 			{#each filters as filter (filter.id)}
-				<div class="flex min-h-10 flex-row items-center justify-between gap-8" use:autoAnimate>
+				<div
+					class="hover:bg-muted/50 data-[state=selected]:bg-muted flex min-h-10 flex-row items-center justify-between gap-8 px-5"
+					use:autoAnimate
+				>
+					<div class="h-4 w-4 rounded-full" style="background-color: {getPastelColor(filter.id)}"></div>
 					<div class="flex flex-1 flex-row gap-2">
 						<div>
 							{NumberStringProperties.find((p) => p.value === filter.configuration.property)?.label}

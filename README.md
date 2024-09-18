@@ -63,8 +63,11 @@ Create a simple front-end to show off the back-end's features
   - [*] See a list of filters
   - [*] Create a filter
   - [*] Delete a filter
-  - [ ] Edit a filter
-- [ ] visualize the live data
-  - [ ] color transactions based on the filter they match
+  - [*] Edit a filter
+- [*] visualize the live data
+  - [*] color transactions based on the filter they match
+  - [*] glowing green to indicate live
 - [ ] display all saved transactions
 - [ ] dockerize everything
+
+## TODO extract overlapping types into a shared lib

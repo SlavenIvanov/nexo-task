@@ -62,7 +62,6 @@ export const filtersRoutes = async (app: FastifyInstance) => {
       const { enabled } = request.body
 
       await handleUpdateFilter(id, enabled)
-
       filterEmitter.emitFilterChange()
 
       return reply.code(200).send({ message: 'Filter updated' })
@@ -85,9 +84,10 @@ export const filtersRoutes = async (app: FastifyInstance) => {
     handler: async (request, reply) => {
       const { id } = request.params
 
-      await handleDeleteFilter(id)
+      console.log('Deleting filter', id)
 
-      filterEmitter.emitFilterChange()
+      filterEmitter.emitFilterChange(id)
+      await handleDeleteFilter(id)
 
       return reply.code(200).send({ message: 'Filter deleted' })
     }
