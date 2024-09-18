@@ -30,7 +30,7 @@ export async function startEthApp() {
   ethClient.onNewTransaction(async (tx) => {
     const matchingFilters = ethFilter.getMatchingFilters(tx)
 
-    console.log(`🔍 Matching filters for tx: ${tx.hash}`, matchingFilters.length)
+    console.log(`🔍 tx: ${tx.hash} matches with ${matchingFilters.map((f) => f.id)}`)
 
     let transaction = {
       hash: tx.hash,
@@ -39,6 +39,7 @@ export async function startEthApp() {
       value: tx.value,
       gas: tx.gas
     }
+
     for (const filter of matchingFilters) {
       const transactionWithFilter = {
         ...transaction,

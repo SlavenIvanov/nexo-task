@@ -8,6 +8,5 @@ export const connection = postgres(env.DATABASE_URL)
 export const db = drizzle(connection, {
   schema,
   //todo env?
-  // Todo cleanup migrations
   logger: true
 })

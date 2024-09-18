@@ -12,7 +12,6 @@ export class EthClient {
     console.log('💡 EthClient initialized')
   }
 
-  //   TODO find a way to extract Awaited<ReturnType<typeof this.web3.eth.getTransaction>> outside of the class to get full type
   onNewTransaction(callback: (data: TransactionInsert) => any) {
     this.#web3.eth.subscribe('newPendingTransactions', undefined, RETURN_FORMAT).then((subscription) => {
       subscription.on('error', (err) => {

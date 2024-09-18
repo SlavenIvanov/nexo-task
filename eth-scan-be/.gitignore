@@ -1,8 +1,9 @@
 # Dependency directories
 node_modules/
 
-# dotenv environment variables file
-.env
+# Commented out as we want to keep the .env files for ease of use
+# # dotenv environment variables file
+# .env
 
 # PostgreSQL
 db-data
