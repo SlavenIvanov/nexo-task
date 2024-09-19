@@ -2,7 +2,7 @@
 
 This is a simple app that allows you to monitor ETH transactions in real-time. As well as save said transactions based on real-time, configurable filters.
 
-This app has been made as part of a technical interview by Nexo, following the [task definition](./docs/TASK.md).
+This app has been made as part of a technical interview by Nexo, following a given task.
 
 The app comes in a monorepo and is composed of:
 
